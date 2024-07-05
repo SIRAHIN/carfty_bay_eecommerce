@@ -1,8 +1,6 @@
-import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/style/style.dart';
 import 'package:crafty_bay/utils/constants/asset_paths.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
   const CompleteProfileScreen({super.key});

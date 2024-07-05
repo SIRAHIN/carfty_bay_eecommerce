@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-SvgPicture svgImage(context, svgImgPath,  [ sizeofWidth, sizeofHeight]){
+SvgPicture svgImage(context, svgImgPath,  [ sizeofWidth, sizeofHeight, isfit]){
   return SvgPicture.asset(
     svgImgPath,
     alignment: Alignment.center,
     width: MediaQuery.of(context).size.width* sizeofWidth,
     height: MediaQuery.of(context).size.height * sizeofHeight,
-    fit: BoxFit.cover,
+    fit: isfit == true ? BoxFit.cover : BoxFit.contain ,
   );
 }
 

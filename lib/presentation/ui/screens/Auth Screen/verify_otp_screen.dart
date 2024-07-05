@@ -53,7 +53,7 @@ class VerifyOtpScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 child:
                     ElevatedButton(onPressed: () {
-                     Get.toNamed(RoutesName.completeProfileScreen);
+                     Get.offNamed(RoutesName.completeProfileScreen);
                     }, child: const Text("Next")),
               ),
             ),
