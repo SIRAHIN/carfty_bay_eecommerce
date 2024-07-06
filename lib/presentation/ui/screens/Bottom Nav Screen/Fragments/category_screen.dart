@@ -30,7 +30,7 @@ class CategoryScreen extends StatelessWidget {
        
        ), 
        itemBuilder: (context, index) {
-         return FittedBox(child: CategoryItemSection());
+         return const FittedBox(child: CategoryItemSection());
        },
        ),
       ),
