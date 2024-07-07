@@ -68,7 +68,7 @@ class CarftyBay extends StatelessWidget {
                   shape: WidgetStatePropertyAll(LinearBorder.none)))),
       title: 'Carfty Bay',
       getPages: routes,
-      initialRoute: RoutesName.mainBottonNavScreen,
+      initialRoute: RoutesName.splashScreen,
     );
   }
 }

@@ -16,9 +16,9 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Product Details"),
+          title: const Text("Product Details"),
           leading: IconButton(
-              onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new_rounded)),
+              onPressed: () {}, icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -172,10 +172,10 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
           
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
           
                       // Size Section //    
-                    Text("Size", style: TextStyle(
+                    const Text("Size", style: TextStyle(
                      fontSize: 20,
                      fontWeight: FontWeight.w500
                     ),
@@ -218,7 +218,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 15,),
           
                      Text('Descoption', style: Theme.of(context).textTheme.titleMedium ,),
-                     Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. I")
+                     const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. I")
           
                     
                   ],

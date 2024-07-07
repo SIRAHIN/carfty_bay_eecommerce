@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class ProductDetailsController extends GetxController {
   
-  List<Color> _itemColor = [
+  final List<Color> _itemColor = [
    Colors.purple,
    Colors.pink,
    Colors.red,
@@ -23,7 +23,7 @@ class ProductDetailsController extends GetxController {
   int get currentColorIndex => _currentColorIndex;
 
 
-    List<String> _itemSizeChart = [
+    final List<String> _itemSizeChart = [
      'S',
      'M',
      'L',

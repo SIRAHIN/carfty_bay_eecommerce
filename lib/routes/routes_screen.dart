@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 List<GetPage<dynamic>>? routes = [
 GetPage(name: RoutesName.splashScreen, page: () => const SplashScreen(),),
-GetPage(name: RoutesName.verifyEmailScreen, page: () => const VerifyEmailScreen(),),
+GetPage(name: RoutesName.verifyEmailScreen, page: () =>  VerifyEmailScreen(),),
 GetPage(name: RoutesName.verifyOTPScreen, page: () => const VerifyOtpScreen(),),
 GetPage(name: RoutesName.completeProfileScreen, page: () => const CompleteProfileScreen(),),
 GetPage(name: RoutesName.mainBottonNavScreen, page: () => const MainBottomNav(),),

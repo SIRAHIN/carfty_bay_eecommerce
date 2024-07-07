@@ -13,7 +13,7 @@ class ProductItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
     onTap: () {
-      Get.to(ProductDetailsScreen());
+      Get.to(const ProductDetailsScreen());
     },
       child: ClipRRect(
       borderRadius: BorderRadius.circular(25),
