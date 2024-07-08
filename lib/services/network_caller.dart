@@ -8,7 +8,13 @@ class NetworkCaller {
   Future<ResponsedataModel> getRequest(String url, {String? token}) async {
   log(url);
     final http.Response response = await http
-        .get(Uri.parse(url), headers: {'Content-type': 'application/json'});
+        .get(Uri.parse(url), 
+        headers: {
+        'Content-type': 'application/json',
+        'token' : token.toString()
+        }
+
+        );
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
       if (decodedResponse['msg'] == 'success') {

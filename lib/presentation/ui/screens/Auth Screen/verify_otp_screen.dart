@@ -1,3 +1,5 @@
+import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/email_verification_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/otp_verification_controller.dart';
 import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/style/style.dart';
 import 'package:crafty_bay/utils/constants/asset_paths.dart';
@@ -7,7 +9,9 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
-  const VerifyOtpScreen({super.key});
+   VerifyOtpScreen({super.key});
+
+final userEmail = Get.arguments['userEmail'];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +43,7 @@ class VerifyOtpScreen extends StatelessWidget {
             SizedBox(
               width: 250,
               child: PinCodeTextField(
+                controller: Get.find<OtpVerificationController>().otpCotroller,
                 appContext: context,
                 length: 4,
                 pinTheme: AppOTPStyle(),
@@ -47,15 +52,30 @@ class VerifyOtpScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child:
-                    ElevatedButton(onPressed: () {
-                     Get.offNamed(RoutesName.completeProfileScreen);
-                    }, child: const Text("Next")),
-              ),
+            GetBuilder<OtpVerificationController>(
+            builder: (verifyOtpController) => 
+               Visibility(
+               visible: verifyOtpController.isLoading == false,
+               replacement: const Center(child: CircularProgressIndicator()),
+                 child: SizedBox(
+                  width: double.infinity,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child:
+                        ElevatedButton(onPressed: () async {
+                        bool isSuccess = await verifyOtpController.verifyOtpRequest(userEmail,verifyOtpController.otpCotroller.text.trim());
+                        if(isSuccess){
+                         Get.toNamed(RoutesName.mainBottonNavScreen);
+                        } else if(isSuccess == false) {
+                         Get.toNamed(RoutesName.completeProfileScreen);
+                         
+                        } else {
+                         Get.snackbar('OTP', verifyOtpController.errorMessage);
+                        }
+                        }, child: const Text("Next")),
+                  ),
+                               ),
+               ),
             ),
             const SizedBox(
               height: 30,

@@ -1,5 +1,4 @@
-import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/auth_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/verify_otp_screen.dart';
+import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/email_verification_controller.dart';
 import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/style/style.dart';
 import 'package:crafty_bay/utils/constants/asset_paths.dart';
@@ -49,7 +48,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   }
                   return null;
                 },
-                controller: Get.find<AuthController>().emailControler,
+                controller: Get.find<EmailVerificationController>().emailControler,
                 decoration: const InputDecoration(
                   hintText: 'Email Address',
                 ),
@@ -57,21 +56,30 @@ class VerifyEmailScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              SizedBox(
-                width: double.infinity,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: ElevatedButton(onPressed: () async {
-                  if(_formKey.currentState!.validate()){
-                   bool isSuccess = await Get.find<AuthController>().sendOtptoEmail(Get.find<AuthController>().emailControler.text.trim());
-                   if(isSuccess){
-                    Get.offNamed(RoutesName.verifyOTPScreen);
-                   } else{
-                    Get.snackbar('Login Error', 'Something Went Wrong');
-                   }
-                  }
-                 
-                  }, child: const Text("Next")),
+              GetBuilder<EmailVerificationController>(
+              builder: (controller) => 
+                 SizedBox(
+                  width: double.infinity,
+                  child: Visibility(
+                  visible: controller.isLoading == false,
+                  replacement: const Center(child: CircularProgressIndicator()),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: ElevatedButton(onPressed: () async {
+                      if(_formKey.currentState!.validate()){
+                       bool isSuccess = await Get.find<EmailVerificationController>().sendOtptoEmail(Get.find<EmailVerificationController>().emailControler.text.trim());
+                       if(isSuccess){
+                        Get.offNamed(RoutesName.verifyOTPScreen, arguments: {
+                        'userEmail' : Get.find<EmailVerificationController>().emailControler.text.trim()
+                        });
+                       } else{
+                        Get.snackbar('Login Error', 'Something Went Wrong');
+                       }
+                      }
+                     
+                      }, child: const Text("Next")),
+                    ),
+                  ),
                 ),
               )
             ],

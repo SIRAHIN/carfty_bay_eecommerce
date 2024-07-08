@@ -4,7 +4,7 @@ import 'package:crafty_bay/utils/constants/api_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AuthController extends GetxController {
+class EmailVerificationController extends GetxController {
 
 TextEditingController emailControler = TextEditingController();
   
@@ -18,7 +18,8 @@ TextEditingController emailControler = TextEditingController();
 
   Future<bool> sendOtptoEmail(String email)async {
    _isLoading = true;
-   final ResponsedataModel response = await NetworkCaller().getRequest(ApiUrls.sentEmailOtpUrl(email));
+   update();
+   final ResponsedataModel response = await NetworkCaller().getRequest(ApiUrls.sentEmailForOtpUrl(email));
    
    if(response.isSuccess){
    _isLoading = false;
