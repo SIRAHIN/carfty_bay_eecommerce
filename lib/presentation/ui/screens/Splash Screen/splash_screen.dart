@@ -1,6 +1,7 @@
 import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/style/style.dart';
 import 'package:crafty_bay/utils/constants/asset_paths.dart';
+import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,15 +18,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
   @override
-  void initState() {
-   Future.delayed(const Duration(seconds: 1), () {
+  void initState()  {
+   Future.delayed(const Duration(seconds: 1), () async {
+      await AppStoredData().initalCheckUserStoredData();
       _checkLoginStatus();
     });
     super.initState();
   }
 
   void _checkLoginStatus (){
+   if((AppStoredData.token != null || AppStoredData.token != '') && (AppStoredData.profileData != null) ){
+    Get.offAllNamed(RoutesName.mainBottonNavScreen);
+   } else{
     Get.offAllNamed(RoutesName.verifyEmailScreen);
+   }
+    
   }
 
 
