@@ -1,3 +1,4 @@
+import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/complete_profile_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/email_verification_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/otp_verification_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/read_user_profile_controller.dart';
@@ -16,5 +17,6 @@ class ControllerBindings extends Bindings {
     Get.lazyPut<EmailVerificationController>(() => EmailVerificationController(), fenix: true);
      Get.lazyPut<OtpVerificationController>(() => OtpVerificationController(), fenix: true);
        Get.lazyPut<ReadUserProfileController>(() => ReadUserProfileController(), fenix: true);
+        Get.lazyPut<CompleteProfileController>(() => CompleteProfileController(), fenix: true);
   }
 }

@@ -10,4 +10,6 @@ static String verifyOtpforEmail(String email, String otp) => '$baseUrl/VerifyLog
 
 static String readUserProfileUrl = '$baseUrl/ReadProfile';
 
+static String createUserProfileUrl = '$baseUrl/CreateProfile';
+
 }

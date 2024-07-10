@@ -1,4 +1,3 @@
-import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/email_verification_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/otp_verification_controller.dart';
 import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/style/style.dart';
@@ -64,11 +63,11 @@ final userEmail = Get.arguments['userEmail'];
                     child:
                         ElevatedButton(onPressed: () async {
                         bool isSuccess = await verifyOtpController.verifyOtpRequest(userEmail,verifyOtpController.otpCotroller.text.trim());
-                        if(isSuccess){
+                        print(isSuccess);
+                        if(isSuccess == true){
                          Get.toNamed(RoutesName.mainBottonNavScreen);
                         } else if(isSuccess == false) {
                          Get.toNamed(RoutesName.completeProfileScreen);
-                         
                         } else {
                          Get.snackbar('OTP', verifyOtpController.errorMessage);
                         }

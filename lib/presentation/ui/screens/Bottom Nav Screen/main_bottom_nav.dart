@@ -1,4 +1,5 @@
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/bottom_nav_controller.dart';
+import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class MainBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  print(AppStoredData.profileData!.firstName);
     return GetBuilder<BottomNavController>(
     builder: (controller) => 
         Scaffold(
