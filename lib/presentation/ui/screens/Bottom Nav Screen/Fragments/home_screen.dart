@@ -1,9 +1,10 @@
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/banner_slider_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/bottom_nav_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/home_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/Banner_Slider.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/home_Appbar.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/searchText_field.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/sectionLevel_text.dart';
+import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/widgets/product_bannerSlider.dart';
 import 'package:crafty_bay/presentation/ui/widgets/category_item_card_widget.dart';
 import 'package:crafty_bay/presentation/ui/widgets/product_item_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
- HomeController get homeController => Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,22 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              BannerSlider(homeController: homeController),
+           
+              
+                GetBuilder<BannerSliderController>(
+                  builder: (controller) {
+                    return Visibility(
+                      visible: controller.isLoading == false,
+                      replacement: const Center(child: CircularProgressIndicator()),
+                      child: BannerSlider(
+                      bannerList: controller.sliderModel.sliderDataList ?? [],
+                      ),
+                    );
+                  }
+                ),
+      
+            
+              
               const SizedBox(
                 height: 15,
               ),

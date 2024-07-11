@@ -25,14 +25,13 @@ class OtpVerificationController extends GetxController {
     final ResponsedataModel response =
         await NetworkCaller().getRequest(ApiUrls.verifyOtpforEmail(email, otp));
     if (response.isSuccess) {
-    print("Your otp is success and it's code");
-      _isLoading = false;
+         _isLoading = false;
        token = response.responseData['data'];
       if (token != null || token != '') {
       await Future.delayed(const Duration(seconds: 3));
         await Get.find<ReadUserProfileController>()
             .readUserProfileRequest(token!);
-        await Future.delayed(const Duration(seconds: 3));
+        // await Future.delayed(const Duration(seconds: 3));
         if (Get.find<ReadUserProfileController>().isProfileExsit == true) {
           update();
           return true;

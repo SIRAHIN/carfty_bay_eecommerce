@@ -12,4 +12,7 @@ static String readUserProfileUrl = '$baseUrl/ReadProfile';
 
 static String createUserProfileUrl = '$baseUrl/CreateProfile';
 
+static String listProductSlider = '$baseUrl/ListProductSlider';
+
+
 }

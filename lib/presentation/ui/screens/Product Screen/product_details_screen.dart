@@ -1,3 +1,4 @@
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/banner_slider_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/home_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/widgets/product_bannerSlider.dart';
@@ -24,7 +25,9 @@ class ProductDetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               // Banner Slider Section //
-              ProductBannerSlider(homeController: homeController),
+               ProductBannerSlider(
+               bannerList: Get.find<BannerSliderController>().sliderModel.sliderDataList ?? [],
+               ),
           
               // Main Body Section //
               Padding(

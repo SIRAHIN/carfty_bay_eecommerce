@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState()  {
-   Future.delayed(const Duration(seconds: 1), () async {
+   Future.delayed(const Duration(seconds: 2), () async {
       await AppStoredData().initalCheckUserStoredData();
       _checkLoginStatus();
     });
