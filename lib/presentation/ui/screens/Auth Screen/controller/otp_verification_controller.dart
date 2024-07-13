@@ -31,7 +31,7 @@ class OtpVerificationController extends GetxController {
       await Future.delayed(const Duration(seconds: 3));
         await Get.find<ReadUserProfileController>()
             .readUserProfileRequest(token!);
-        // await Future.delayed(const Duration(seconds: 3));
+        await Future.delayed(const Duration(seconds: 3));
         if (Get.find<ReadUserProfileController>().isProfileExsit == true) {
           update();
           return true;

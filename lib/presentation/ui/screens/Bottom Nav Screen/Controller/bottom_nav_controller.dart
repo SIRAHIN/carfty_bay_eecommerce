@@ -1,5 +1,8 @@
-import 'package:crafty_bay/model/sliderDataList.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/banner_slider_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/category_item_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/new_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/popular_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/special_product_lsit_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/cart_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/category_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/home_screen.dart';
@@ -15,6 +18,10 @@ class BottomNavController extends GetxController {
   void onInit()  {
     super.onInit();
      Get.find<BannerSliderController>().getSliderData();
+     Get.find<CategoryItemController>().getCategoryListData();
+     Get.find<PopularProductLsitController>().getProductByRemark();
+     Get.find<SpecialProductLsitController>().getProductByRemark();
+     Get.find<NewProductLsitController>().getProductByRemark();
   }
 
   int get currentIndex => _selectedIndex;

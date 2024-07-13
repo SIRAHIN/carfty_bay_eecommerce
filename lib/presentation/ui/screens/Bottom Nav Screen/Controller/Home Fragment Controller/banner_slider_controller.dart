@@ -17,6 +17,7 @@ class BannerSliderController extends GetxController {
   SliderModel get sliderModel => _sliderModelData;
 
 
+  //Get banner Slider Data 
   Future getSliderData() async {
     _isLoading = true;
     update();
@@ -32,4 +33,18 @@ class BannerSliderController extends GetxController {
       update();
     }
   }
+   
+   // Controller Slider Pin Point Index //
+   int _currentIndex = 0;
+
+   int get currentIndex => _currentIndex;
+
+   void onChangeIndex(indexValue){
+    print(indexValue);
+    _currentIndex = indexValue;
+    update();
+   }
+  
+  
+
 }
