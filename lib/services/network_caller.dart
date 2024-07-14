@@ -6,8 +6,7 @@ import 'package:http/http.dart' as http;
 
 class NetworkCaller {
   Future<ResponsedataModel> getRequest(String url, {String? token}) async {
-  // log(url);
-  // print(token);
+  
     final http.Response response = await http
         .get(Uri.parse(url), 
         headers: {
@@ -20,10 +19,12 @@ class NetworkCaller {
       final decodedResponse = jsonDecode(response.body);
       if (decodedResponse['msg'] == 'success') {
       // print(decodedResponse['data'][0]);
+      print(decodedResponse['data']);
         return ResponsedataModel(
             isSuccess: true,
             statusCode: response.statusCode,
-            responseData: decodedResponse);
+            responseData: decodedResponse
+            );
       } else {
         return ResponsedataModel(
             isSuccess: false,

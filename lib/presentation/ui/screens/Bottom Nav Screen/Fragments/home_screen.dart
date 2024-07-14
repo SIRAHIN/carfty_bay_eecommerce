@@ -1,5 +1,10 @@
+import 'package:crafty_bay/model/category%20model/category_data_list.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/new_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/special_product_lsit_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/bottom_nav_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/home_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/category_item_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/popular_product_lsit_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/Banner_Slider.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/home_Appbar.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/searchText_field.dart';
@@ -12,7 +17,6 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
- HomeController get homeController => Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,22 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              BannerSlider(homeController: homeController),
+           
+              
+                GetBuilder<BannerSliderController>(
+                  builder: (controller) {
+                    return Visibility(
+                      visible: controller.isLoading == false,
+                      replacement: const Center(child: CircularProgressIndicator()),
+                      child: BannerSlider(
+                     bannerList: controller.sliderModel.sliderDataList ?? [],
+                      ),
+                    );
+                  }
+                ),
+      
+            
+              
               const SizedBox(
                 height: 15,
               ),
@@ -40,22 +59,34 @@ class HomeScreen extends StatelessWidget {
                 btnTitleText: 'See All',
                 onTap: () => Get.find<BottomNavController>().onTapChangeIndex(1),
               ),
-              SizedBox(
-                height: 100,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const CategoryItemSection();
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 20,
-                    );
-                  },
-                ),
+              
+              GetBuilder<CategoryItemController>(
+                builder: (categoryController) {
+                  return Visibility(
+                  visible: categoryController.isLoading == false,
+                  replacement: const Center(child: CircularProgressIndicator()),
+                    child: SizedBox(
+                      height: 100,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        primary: false,
+                        itemCount:  categoryController.categoryModelClass.categoryDataList?.length ?? 0,
+                        itemBuilder: (context, index) {
+                        CategoryDataList categoryData = categoryController.categoryModelClass.categoryDataList![index];
+                          return  CategoryItemSection(
+                          categoryData: categoryData,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            width: 18,
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
               ),
 
               /// Popolur Card View ///
@@ -69,19 +100,28 @@ class HomeScreen extends StatelessWidget {
 
               SizedBox(
                 height: 150,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const ProductItemCard();
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 10,
-                    );
-                  },
+                child: GetBuilder<PopularProductLsitController>(
+                builder: (popularProductListController) => 
+                   Visibility(
+                   visible: popularProductListController.isLoading == false,
+                   replacement: const Center(child: CircularProgressIndicator()),
+                     child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: popularProductListController.productCardViewModelClass.productCardListData?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return  ProductItemCard(
+                        productCardListData: popularProductListController.productCardViewModelClass.productCardListData![index],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          width: 10,
+                        );
+                      },
+                                       ),
+                   ),
                 ),
               ),
 
@@ -96,19 +136,28 @@ class HomeScreen extends StatelessWidget {
 
               SizedBox(
                 height: 150,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const ProductItemCard();
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 10,
-                    );
-                  },
+                child: GetBuilder<SpecialProductLsitController>(
+                builder: (specialProductListController) => 
+                   Visibility(
+                   visible: specialProductListController.isLoading == false,
+                   replacement: const Center(child: CircularProgressIndicator()),
+                     child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: specialProductListController.productCardViewModelClass.productCardListData?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return  ProductItemCard(
+                        productCardListData: specialProductListController.productCardViewModelClass.productCardListData![index],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          width: 10,
+                        );
+                      },
+                                       ),
+                   ),
                 ),
               ),
 
@@ -123,19 +172,28 @@ class HomeScreen extends StatelessWidget {
 
               SizedBox(
                 height: 150,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const ProductItemCard();
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 10,
-                    );
-                  },
+                child: GetBuilder<NewProductLsitController>(
+                builder: (newProductListController) => 
+                   Visibility(
+                   visible: newProductListController.isLoading == false,
+                   replacement: const Center(child: CircularProgressIndicator()),
+                     child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: newProductListController.productCardViewModelClass.productCardListData?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return  ProductItemCard(
+                        productCardListData: newProductListController.productCardViewModelClass.productCardListData![index],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          width: 10,
+                        );
+                      },
+                                       ),
+                   ),
                 ),
               ),
             ],

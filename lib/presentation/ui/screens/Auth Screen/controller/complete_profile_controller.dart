@@ -24,7 +24,6 @@ class CompleteProfileController extends GetxController {
   UserProfileData get userProfileData => _userProfileData!;
 
   Future <bool> completeUserProfile(String token) async {
-  print(token);
     _isLoading = true;
     update();
     final ResponsedataModel response =

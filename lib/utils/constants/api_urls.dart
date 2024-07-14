@@ -12,4 +12,13 @@ static String readUserProfileUrl = '$baseUrl/ReadProfile';
 
 static String createUserProfileUrl = '$baseUrl/CreateProfile';
 
+static String listProductSlider = '$baseUrl/ListProductSlider';
+
+static String categoryList = '$baseUrl/CategoryList';
+
+static String productByCategoryId(String categoryid) => '$baseUrl/ListProductByCategory/$categoryid';
+
+static String ListProductByRemarkurl = '$baseUrl/ListProductByRemark/';
+
+
 }

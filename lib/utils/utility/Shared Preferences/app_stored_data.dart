@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppStoredData {
   static String? token;
-  static late UserProfileData? profileData;
+  static UserProfileData? profileData;
 
   static Future<void> setUserProfileDetailsData(
       UserProfileData? userProfileData,
@@ -17,8 +17,11 @@ class AppStoredData {
   }
 
   Future <void> initalCheckUserStoredData() async {
+    
+   
     token = await getToken();
     profileData = await getProfileDetails();
+     Future.delayed(const Duration(seconds: 2));
   }
 
   static Future<String?> getToken() async {

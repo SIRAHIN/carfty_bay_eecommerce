@@ -32,7 +32,6 @@ class ReadUserProfileController extends GetxController {
       //Check user profile Exist
       List profileData = response.responseData['data'];
       // if User profiel Exsit store user data into Model class
-      print(profileData);
       if (profileData.isNotEmpty && profileData != []) {
          _userProfileData = UserProfileData.fromJson(profileData[0]);
         await AppStoredData.setUserProfileDetailsData(userProfileData, token: token);

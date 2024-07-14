@@ -8,6 +8,7 @@ class RoutesName {
             static const String categoryScreen = '/categoryScreen';
                 static const String cartListScreen = '/cartListScreen';
                     static const String wishListScreen = '/wishListScreen';
+                      static const String productsByCategoryScreen = '/productsByCategoryScreen';
 
 
 }

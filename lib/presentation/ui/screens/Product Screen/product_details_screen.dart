@@ -1,4 +1,5 @@
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/home_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
+
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/widgets/product_bannerSlider.dart';
 import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
@@ -9,7 +10,7 @@ import 'package:get/get.dart';
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
 
-  HomeController get homeController => Get.find();
+
   ProductDetailsController get productDetailsController => Get.find();
 
   @override
@@ -24,7 +25,9 @@ class ProductDetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               // Banner Slider Section //
-              ProductBannerSlider(homeController: homeController),
+               ProductBannerSlider(
+               bannerList: Get.find<BannerSliderController>().sliderModel.sliderDataList ?? [],
+               ),
           
               // Main Body Section //
               Padding(
