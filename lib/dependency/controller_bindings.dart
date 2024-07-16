@@ -47,6 +47,11 @@ class ControllerBindings extends Bindings {
           Get.lazyPut<NewProductLsitController>(
         () => NewProductLsitController(),
         fenix: true);
+
+         
+          Get.lazyPut<ProductDetailsController>(
+        () => ProductDetailsController(),
+        fenix: true);
         
   }
 }

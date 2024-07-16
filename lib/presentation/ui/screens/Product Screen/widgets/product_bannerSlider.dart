@@ -5,24 +5,24 @@ import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductBannerSlider extends StatelessWidget {
-   ProductBannerSlider({
+class ProductDetailsBanner extends StatelessWidget {
+   ProductDetailsBanner({
     super.key,
-    required this.bannerList
+    required this.imgUrl
   });
 
-  List<SliderDataList> bannerList;
+  List<String> imgUrl;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
            CarouselSlider(
-            items: bannerList.map((e) {
+            items: imgUrl.map((e) {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 decoration:  BoxDecoration(
-                image: DecorationImage(image: NetworkImage(e.image.toString())),
+                image: DecorationImage(image: NetworkImage(e.toString())),
                     // borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.grey.shade300),
                 // margin: const EdgeInsets.all(1.0),
@@ -55,7 +55,7 @@ class ProductBannerSlider extends StatelessWidget {
             builder: (controller) => Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < bannerList.length; i++)
+                for (int i = 0; i < imgUrl.length; i++)
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Container(
                       height: 12,

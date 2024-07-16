@@ -20,5 +20,7 @@ static String productByCategoryId(String categoryid) => '$baseUrl/ListProductByC
 
 static String ListProductByRemarkurl = '$baseUrl/ListProductByRemark/';
 
+static String productDetailsByProductId(String productId) => '$baseUrl/ProductDetailsById/$productId';
+
 
 }
