@@ -21,5 +21,5 @@ GetPage(name: RoutesName.homeScreen, page: () => const HomeScreen(),),
 GetPage(name: RoutesName.categoryScreen, page: () => const CategoryScreen(),),
 GetPage(name: RoutesName.cartListScreen, page: () => const CartListScreen(),),
 GetPage(name: RoutesName.wishListScreen, page: () => const WishListScreen(),),
-GetPage(name: RoutesName.productsByCategoryScreen, page: () =>  ProductsByCategoryScreen(),)
+GetPage(name: RoutesName.productsByCategoryScreen, page: () =>  const ProductsByCategoryScreen(),)
 ];

@@ -17,11 +17,9 @@ class AppStoredData {
   }
 
   Future <void> initalCheckUserStoredData() async {
-    
-   
     token = await getToken();
     profileData = await getProfileDetails();
-     Future.delayed(const Duration(seconds: 2));
+    Future.delayed(const Duration(seconds: 2));
   }
 
   static Future<String?> getToken() async {

@@ -1,7 +1,5 @@
 import 'package:crafty_bay/model/Product%20Card%20View%20Model/porductCardListData.dart';
-import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_by_category_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/product_details_screen.dart';
-import 'package:crafty_bay/utils/constants/asset_paths.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +16,9 @@ class ProductItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
     onTap: () {
-      Get.to(const ProductDetailsScreen());
+      Get.to(ProductDetailsScreen(
+      productId: productCardListData!.id.toString(),
+      ));
     },
       child: ClipRRect(
       borderRadius: BorderRadius.circular(25),

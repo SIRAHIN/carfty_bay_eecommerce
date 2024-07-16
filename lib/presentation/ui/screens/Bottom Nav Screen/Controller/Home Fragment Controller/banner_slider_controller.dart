@@ -40,7 +40,6 @@ class BannerSliderController extends GetxController {
    int get currentIndex => _currentIndex;
 
    void onChangeIndex(indexValue){
-    print(indexValue);
     _currentIndex = indexValue;
     update();
    }
