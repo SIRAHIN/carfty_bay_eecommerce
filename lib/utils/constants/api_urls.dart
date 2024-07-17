@@ -22,5 +22,7 @@ static String ListProductByRemarkurl = '$baseUrl/ListProductByRemark/';
 
 static String productDetailsByProductId(String productId) => '$baseUrl/ProductDetailsById/$productId';
 
+static String addTocartUrl = '$baseUrl/CreateCartList';
+
 
 }

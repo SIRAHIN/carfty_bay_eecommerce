@@ -16,7 +16,8 @@ class AppStoredData {
         'profileDetails', jsonEncode(userProfileData!.toJson()));
   }
 
-  Future <void> initalCheckUserStoredData() async {
+
+   Future <void> initalCheckUserStoredData() async {
     token = await getToken();
     profileData = await getProfileDetails();
     Future.delayed(const Duration(seconds: 2));

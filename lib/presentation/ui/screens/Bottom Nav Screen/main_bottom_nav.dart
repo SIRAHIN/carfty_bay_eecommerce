@@ -1,23 +1,13 @@
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/bottom_nav_controller.dart';
+import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainBottomNav extends StatefulWidget {
+class MainBottomNav extends StatelessWidget {
   const MainBottomNav({super.key});
 
-  @override
-  State<MainBottomNav> createState() => _MainBottomNavState();
 
-
-  
-}
- 
- 
-
-class _MainBottomNavState extends State<MainBottomNav> {
-
- // BottomNavController get screenController => Get.find();
   @override
   Widget build(BuildContext context) {
   // print(AppStoredData.profileData!.firstName);

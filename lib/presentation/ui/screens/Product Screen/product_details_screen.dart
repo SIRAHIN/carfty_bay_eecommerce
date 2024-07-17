@@ -1,9 +1,8 @@
-import 'package:crafty_bay/model/Product%20Card%20View%20Model/porductCardListData.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
-
+import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_add_to_cart_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/widgets/product_bannerSlider.dart';
-import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
+import 'package:crafty_bay/routes/routes_name.dart';
+import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,13 +19,20 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   void initState() {
-    Get.find<ProductDetailsController>()
-        .getProductDetailsByProductId(id: widget.productId);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        Get.find<ProductDetailsController>()
+            .getProductDetailsByProductId(id: widget.productId);
+        // before add to cart check the token for verifying user login status //    
+        await AppStoredData().initalCheckUserStoredData();    
+      },
+    );
+
     super.initState();
   }
 
-  late String selectedcolorName;
-  late String selectedsizeValue;
+  String? selectedcolorName;
+  String? selectedsizeValue;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +45,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         body: GetBuilder<ProductDetailsController>(
             builder: (productDetailsController) {
-
-        var porductDetailsData = productDetailsController.productDetailsModelClass.productDetailsListData?[0];    
+          var porductDetailsData = productDetailsController
+              .productDetailsModelClass.productDetailsListData?[0];
           return Visibility(
             visible: Get.find<ProductDetailsController>().isLoading == false,
             replacement: const Center(child: CircularProgressIndicator()),
@@ -50,14 +56,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   // Banner Slider Section //
                   ProductDetailsBanner(
                     imgUrl: [
-                      porductDetailsData?.img1 ??
-                          '',
-                      porductDetailsData?.img2 ??
-                          '',
-                      porductDetailsData?.img3 ??
-                          '',
-                      porductDetailsData?.img4 ??
-                          '',
+                      porductDetailsData?.img1 ?? '',
+                      porductDetailsData?.img2 ?? '',
+                      porductDetailsData?.img3 ?? '',
+                      porductDetailsData?.img4 ?? '',
                     ],
                   ),
 
@@ -73,8 +75,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Expanded(
                                 child: Text(
                               // TODO : Change this formate //
-                             porductDetailsData?.product?.title
-                                      .toString() ??
+                              porductDetailsData?.product?.title.toString() ??
                                   '',
 
                               style: Theme.of(context).textTheme.titleMedium,
@@ -133,16 +134,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                             Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: Colors.yellow,
                                 ),
-                                Text("${porductDetailsData?.product?.star.toString().substring(0, 3)}"),
-
+                                Text(
+                                    "${porductDetailsData?.product?.star.toString().substring(0, 3)}"),
                               ],
                             ),
                             const SizedBox(
@@ -198,22 +199,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               scrollDirection: Axis.horizontal,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
+                                // Color String Split for making it List here //
+                                var colorCodeList = porductDetailsData?.color
+                                    ?.split(',')
+                                    .toList();
+                                // assigning the selected color //
+                                selectedcolorName = colorCodeList![
+                                    controller.currentColorIndex];
 
-                              // Color String Split for making it List here //
-                              var colorCodeList = porductDetailsData?.color?.split(',').toList();
-                              // assigning the selected color //
-                              selectedcolorName = colorCodeList![controller.currentColorIndex];
-
-                              // convert the Hex Color into Color object //
-                              Color decodedColor = productDetailsController.hexToColor(colorCodeList[index]);
+                                // convert the Hex Color into Color object //
+                                Color decodedColor = productDetailsController
+                                    .hexToColor(colorCodeList[index]);
 
                                 return GestureDetector(
                                   onTap: () {
                                     controller.changeColorIndex(index);
                                   },
                                   child: CircleAvatar(
-                                    backgroundColor:
-                                        decodedColor,
+                                    backgroundColor: decodedColor,
                                     radius: 16,
                                     child: controller.currentColorIndex == index
                                         ? const Icon(
@@ -251,22 +254,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               itemCount: porductDetailsData?.size
                                       ?.split(',')
                                       .toList()
-                                      .length ?? 0,
+                                      .length ??
+                                  0,
                               shrinkWrap: true,
                               primary: false,
                               scrollDirection: Axis.horizontal,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-
-                              // splitng the string value into list
-                              var sizeChartData = porductDetailsData?.size?.split(',').toList();
-                              selectedsizeValue = sizeChartData![controller.currentSizeIndex];
+                                // splitng the string value into list
+                                var sizeChartData = porductDetailsData?.size
+                                    ?.split(',')
+                                    .toList();
+                                selectedsizeValue =
+                                    sizeChartData![controller.currentSizeIndex];
 
                                 return GestureDetector(
                                   onTap: () {
                                     controller.changeSizeIndex(index);
-                                    
-                                    
                                   },
                                   child: CircleAvatar(
                                     backgroundColor:
@@ -275,7 +279,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             : Colors.grey.withOpacity(0.2),
                                     radius: 20,
                                     child: Text(
-                              // here access the List of size value //   
+                                      // here access the List of size value //
                                       sizeChartData[index],
                                       style: TextStyle(
                                           fontSize: 12,
@@ -302,8 +306,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
 
-                        Text(porductDetailsData?.product?.shortDes
-                                .toString() ??
+                        Text(porductDetailsData?.product?.shortDes.toString() ??
                             '')
                       ],
                     ),
@@ -323,7 +326,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           Column(
+                          Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -341,16 +344,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             borderRadius: BorderRadius.circular(10),
                             child: SizedBox(
                               width: 130,
-                              child: ElevatedButton(
-                                  style: const ButtonStyle(
-                                      elevation: WidgetStatePropertyAll(0)),
-                                  onPressed: () {
+                              child: GetBuilder<ProductAddToCartController>(
+                                builder: (addToCartcontroller) => Visibility(
+                                  visible:
+                                      addToCartcontroller.isProgress == false,
+                                  replacement: const Center(
+                                      child: CircularProgressIndicator()),
+                                  child: ElevatedButton(
+                                      style: const ButtonStyle(
+                                          elevation: WidgetStatePropertyAll(0)),
+                                      onPressed: () async {
+                                        if (selectedcolorName != null &&
+                                            selectedsizeValue != null) {
+                                          if (AppStoredData.token != null) {
+                                            bool isSuccess =
+                                                await addToCartcontroller
+                                                    .addTOcart(
+                                                        int.parse(
+                                                            widget.productId),
+                                                        selectedcolorName
+                                                            .toString(),
+                                                        selectedsizeValue
+                                                            .toString());
+                                            if (isSuccess) {
+                                              Get.snackbar("Success",
+                                                  "Your Product Added Successfully");
+                                            } else {
+                                              Get.snackbar("Failed",
+                                                  "Add to cart Failed");
+                                            }
+                                          } else {
+                                            Get.toNamed(
+                                                RoutesName.verifyEmailScreen);
+                                          }
+                                        } else {
+                                          Get.snackbar(
+                                              'Failed', "Add to cart Failed");
+                                        }
 
-                                  print(selectedcolorName);
-                                    print(selectedsizeValue);
-                                   // Get.to(const ReviewListScreen());
-                                  },
-                                  child: const Text("Add to Cart")),
+                                        // print(selectedcolorName);
+                                        // print(selectedsizeValue);
+                                        // Get.to(const ReviewListScreen());
+                                      },
+                                      child: const Text("Add to Cart")),
+                                ),
+                              ),
                             ),
                           )
                         ],
