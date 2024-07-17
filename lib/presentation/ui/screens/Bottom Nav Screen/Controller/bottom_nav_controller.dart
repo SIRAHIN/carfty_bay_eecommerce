@@ -16,12 +16,15 @@ class BottomNavController extends GetxController {
 
   @override
   void onInit()  {
-    super.onInit();
+   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
      Get.find<BannerSliderController>().getSliderData();
      Get.find<CategoryItemController>().getCategoryListData();
      Get.find<PopularProductLsitController>().getProductByRemark();
      Get.find<SpecialProductLsitController>().getProductByRemark();
      Get.find<NewProductLsitController>().getProductByRemark();
+//    });
+
+    super.onInit();
   }
 
   int get currentIndex => _selectedIndex;

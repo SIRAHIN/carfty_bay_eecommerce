@@ -63,7 +63,6 @@ final userEmail = Get.arguments['userEmail'];
                     child:
                         ElevatedButton(onPressed: () async {
                         bool isSuccess = await verifyOtpController.verifyOtpRequest(userEmail,verifyOtpController.otpCotroller.text.trim());
-                        print(isSuccess);
                         if(isSuccess == true){
                          Get.toNamed(RoutesName.mainBottonNavScreen);
                         } else if(isSuccess == false) {

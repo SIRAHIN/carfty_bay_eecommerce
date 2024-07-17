@@ -27,11 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _checkLoginStatus (){
-   if((AppStoredData.token != null || AppStoredData.token != '') && (AppStoredData.profileData != null) ){
+  //  if((AppStoredData.token != null || AppStoredData.token != '') && (AppStoredData.profileData != null) ){
     Get.offAllNamed(RoutesName.mainBottonNavScreen);
-   } else{
-    Get.offAllNamed(RoutesName.verifyEmailScreen);
-   }
+  //  } else{
+  //   Get.offAllNamed(RoutesName.verifyEmailScreen);
+  //  }
     
   }
 
