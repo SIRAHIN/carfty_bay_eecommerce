@@ -10,6 +10,7 @@ class CategoryItemSection extends StatelessWidget {
      this.categoryData
   });
 
+  // Getting One item of Category List //
   CategoryDataList? categoryData;
 
   @override

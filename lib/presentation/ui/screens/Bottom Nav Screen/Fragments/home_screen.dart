@@ -1,10 +1,10 @@
 import 'package:crafty_bay/model/category%20model/category_data_list.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/new_product_lsit_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/special_product_lsit_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/bottom_nav_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/category_item_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/popular_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/new_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/special_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Bottom%20Nav%20Controller/bottom_nav_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Category%20Fragment%20Controller/category_item_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/popular_product_lsit_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/Banner_Slider.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/home_Appbar.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Fragments/Widgets/Home%20Widgets/searchText_field.dart';
@@ -32,14 +32,14 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
            
-              
+              // *Banner Slider* // 
                 GetBuilder<BannerSliderController>(
                   builder: (controller) {
                     return Visibility(
                       visible: controller.isLoading == false,
                       replacement: const Center(child: CircularProgressIndicator()),
                       child: BannerSlider(
-                     bannerList: controller.sliderModel.sliderDataList ?? [],
+                      bannerDataList: controller.sliderModel.sliderDataList ?? [],
                       ),
                     );
                   }

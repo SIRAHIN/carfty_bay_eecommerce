@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:crafty_bay/model/responseData_model.dart';
-import 'package:crafty_bay/model/user_profile_data.dart';
+import 'package:crafty_bay/model/Response%20Data%20Model/responseData_model.dart';
+import 'package:crafty_bay/model/User%20Profile%20Model/user_profile_data.dart';
 import 'package:crafty_bay/services/network_caller.dart';
 import 'package:crafty_bay/utils/constants/api_urls.dart';
 import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';

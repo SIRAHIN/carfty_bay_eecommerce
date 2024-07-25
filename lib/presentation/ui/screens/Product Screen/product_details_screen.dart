@@ -23,8 +23,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       (timeStamp) async {
         Get.find<ProductDetailsController>()
             .getProductDetailsByProductId(id: widget.productId);
-        // before add to cart check the token for verifying user login status //    
-        await AppStoredData().initalCheckUserStoredData();    
+        // before add to cart check the token for verifying user login status //
+       // await AppStoredData().initalCheckUserStoredData();
       },
     );
 
@@ -184,7 +184,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         SizedBox(
                           height: 40,
                           child: GetBuilder<ProductDetailsController>(
-                            builder: (controller) => ListView.separated(
+                            builder: (productDetailsController) => ListView.separated(
                               separatorBuilder: (context, index) =>
                                   const SizedBox(
                                 width: 10,
@@ -199,13 +199,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               scrollDirection: Axis.horizontal,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                // Color String Split for making it List here //
+                                // From Color String using Split for making List of Color  //
                                 var colorCodeList = porductDetailsData?.color
                                     ?.split(',')
                                     .toList();
                                 // assigning the selected color //
                                 selectedcolorName = colorCodeList![
-                                    controller.currentColorIndex];
+                                    productDetailsController.currentColorIndex];
 
                                 // convert the Hex Color into Color object //
                                 Color decodedColor = productDetailsController
@@ -213,12 +213,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                                 return GestureDetector(
                                   onTap: () {
-                                    controller.changeColorIndex(index);
+                                    productDetailsController.changeColorIndex(index);
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: decodedColor,
                                     radius: 16,
-                                    child: controller.currentColorIndex == index
+                                    child: productDetailsController.currentColorIndex == index
                                         ? const Icon(
                                             Icons.check,
                                             color: Colors.white,
@@ -360,12 +360,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             bool isSuccess =
                                                 await addToCartcontroller
                                                     .addTOcart(
-                                                        int.parse(
-                                                            widget.productId),
-                                                        selectedcolorName
-                                                            .toString(),
-                                                        selectedsizeValue
-                                                            .toString());
+                                              int.parse(widget.productId),
+                                              selectedcolorName.toString(),
+                                              selectedsizeValue.toString(),
+                                            );
                                             if (isSuccess) {
                                               Get.snackbar("Success",
                                                   "Your Product Added Successfully");
@@ -374,7 +372,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                   "Add to cart Failed");
                                             }
                                           } else {
-                                            Get.toNamed(
+                                            Get.offAllNamed(
                                                 RoutesName.verifyEmailScreen);
                                           }
                                         } else {

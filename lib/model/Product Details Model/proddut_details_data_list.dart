@@ -41,7 +41,7 @@ class ProductDetailsDataList {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     product = json['product'] != null
-        ? new ProductCardListData.fromJson(json['product'])
+        ? ProductCardListData.fromJson(json['product'])
         : null;
   }
 

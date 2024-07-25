@@ -1,4 +1,4 @@
-import 'package:crafty_bay/model/sliderModel.dart';
+import 'package:crafty_bay/model/Slider%20Model/sliderModel.dart';
 import 'package:crafty_bay/services/network_caller.dart';
 import 'package:crafty_bay/utils/constants/api_urls.dart';
 import 'package:get/get.dart';

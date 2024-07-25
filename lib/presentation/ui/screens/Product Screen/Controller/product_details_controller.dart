@@ -1,6 +1,5 @@
-import 'package:crafty_bay/model/Product%20Details%20Model/proddut_details_data_list.dart';
 import 'package:crafty_bay/model/Product%20Details%20Model/product_details_model.dart';
-import 'package:crafty_bay/model/responseData_model.dart';
+import 'package:crafty_bay/model/Response%20Data%20Model/responseData_model.dart';
 import 'package:crafty_bay/services/network_caller.dart';
 import 'package:crafty_bay/utils/constants/api_urls.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +45,7 @@ class ProductDetailsController extends GetxController {
 
   // Color List
   final List<Color> _itemColor = [];
+  List get itemColor => _itemColor;
 
   // Function to convert hex string to Color
   Color hexToColor(String hexString) {
@@ -55,38 +55,29 @@ class ProductDetailsController extends GetxController {
     _itemColor.add(Color(int.parse(buffer.toString(), radix: 16)));
     return Color(int.parse(buffer.toString(), radix: 16));
   }
-
-  List get itemColor => _itemColor;
+  
+  // Getting Selected Color //
 
   int _currentColorIndex = 0;
+  int get currentColorIndex => _currentColorIndex;
   
   void changeColorIndex (value){
     _currentColorIndex = value;
     update();
   }
+  
 
-  int get currentColorIndex => _currentColorIndex;
 
-
-  // List for Size Chart
-  //   final List<String> _itemSizeChart = [
-  //    'S',
-  //    'M',
-  //    'L',
-  //    'XL',
-  //    '2XL',
-  //    '3XL'
-  // ];
-
-  // List get itemSizeChart => _itemSizeChart;
-
-   int _currentSizeIndex = 0;
+  
+  // Getting Selected Size //
+  
+  int _currentSizeIndex = 0;
+  int get currentSizeIndex => _currentSizeIndex;
   
   void changeSizeIndex (value){
     _currentSizeIndex = value;
     update();
   }
 
-  int get currentSizeIndex => _currentSizeIndex;
 
 }

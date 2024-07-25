@@ -18,11 +18,14 @@ static String categoryList = '$baseUrl/CategoryList';
 
 static String productByCategoryId(String categoryid) => '$baseUrl/ListProductByCategory/$categoryid';
 
+// ignore: non_constant_identifier_names
 static String ListProductByRemarkurl = '$baseUrl/ListProductByRemark/';
 
 static String productDetailsByProductId(String productId) => '$baseUrl/ProductDetailsById/$productId';
 
 static String addTocartUrl = '$baseUrl/CreateCartList';
+
+static String cartListUrl = '$baseUrl/CartList';
 
 
 }

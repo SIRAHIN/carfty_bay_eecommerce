@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:crafty_bay/model/user_profile_data.dart';
+import 'package:crafty_bay/model/User%20Profile%20Model/user_profile_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppStoredData {
@@ -16,17 +16,16 @@ class AppStoredData {
         'profileDetails', jsonEncode(userProfileData!.toJson()));
   }
 
-
-   Future <void> initalCheckUserStoredData() async {
+  Future<void> initalCheckUserStoredData() async {
     token = await getToken();
     profileData = await getProfileDetails();
-    Future.delayed(const Duration(seconds: 2));
+    // Future.delayed(const Duration(seconds: 2));
   }
 
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    String? userStoredData = prefs.getString('token');
-    return userStoredData;
+    String? userStoredToken = prefs.getString('token');
+    return userStoredToken;
   }
 
   static Future<UserProfileData?> getProfileDetails() async {

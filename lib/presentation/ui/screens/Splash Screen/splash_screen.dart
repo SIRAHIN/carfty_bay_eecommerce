@@ -21,12 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState()  {
    Future.delayed(const Duration(seconds: 2), () async {
       await AppStoredData().initalCheckUserStoredData();
-      _checkLoginStatus();
+      _guestUserPermission();
     });
     super.initState();
   }
 
-  void _checkLoginStatus (){
+  void _guestUserPermission (){
   //  if((AppStoredData.token != null || AppStoredData.token != '') && (AppStoredData.profileData != null) ){
     Get.offAllNamed(RoutesName.mainBottonNavScreen);
   //  } else{

@@ -16,10 +16,10 @@ class SpecialProductLsitController extends GetxController {
 
   ProductCardViewModel get productCardViewModelClass => _productCardViewModelClass;
 
-  //  List<CategoryDataList> categoryDatalsit = [];
+  
 
 
-  //Get Product Card View Data// 
+  //Get Product Card for Speical // 
   Future getProductByRemark() async {
 
     _isLoading = true;
@@ -28,9 +28,6 @@ class SpecialProductLsitController extends GetxController {
         await NetworkCaller().getRequest('${ApiUrls.ListProductByRemarkurl}special');
     if (response.isSuccess) {
        _productCardViewModelClass = ProductCardViewModel.fromJson(response.responseData);
-      //  for(var i in categoryModelClass.categoryDataList!){
-      //   categoryDatalsit.add(i);
-      //  }
       _isLoading = false;
       update();
     } else {

@@ -1,5 +1,5 @@
 
-import 'package:crafty_bay/model/responseData_model.dart';
+import 'package:crafty_bay/model/Response%20Data%20Model/responseData_model.dart';
 import 'package:crafty_bay/presentation/ui/screens/Auth%20Screen/controller/read_user_profile_controller.dart';
 import 'package:crafty_bay/services/network_caller.dart';
 import 'package:crafty_bay/utils/constants/api_urls.dart';
