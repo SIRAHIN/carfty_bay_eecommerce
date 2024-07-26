@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:crafty_bay/model/responseData_model.dart';
+import 'package:crafty_bay/model/Response%20Data%20Model/responseData_model.dart';
+import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkCaller {
@@ -11,7 +12,7 @@ class NetworkCaller {
         .get(Uri.parse(url), 
         headers: {
         'Content-type': 'application/json',
-        'token' : token.toString()
+        'token' : AppStoredData.token ?? token.toString()
         }
 
         );
@@ -19,7 +20,7 @@ class NetworkCaller {
       final decodedResponse = jsonDecode(response.body);
       if (decodedResponse['msg'] == 'success') {
       // print(decodedResponse['data'][0]);
-      print(decodedResponse['data']);
+        print(decodedResponse['data']);
         return ResponsedataModel(
             isSuccess: true,
             statusCode: response.statusCode,

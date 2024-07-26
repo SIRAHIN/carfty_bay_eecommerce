@@ -9,7 +9,8 @@ class ProductItemCard extends StatelessWidget {
     super.key,
     this.productCardListData
   });
-
+  
+  // Getting one item from Product Card List //
   ProductCardListData? productCardListData;
 
   @override

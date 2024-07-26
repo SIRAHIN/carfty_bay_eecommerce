@@ -16,7 +16,7 @@ class ProductByCategoryController extends GetxController {
 
   ProductCardViewModel get productCardViewModelClass => _productCardViewModelClass;
 
-  //  List<CategoryDataList> categoryDatalsit = [];
+
 
 
   //Get Product Card View Data// 
@@ -27,9 +27,7 @@ class ProductByCategoryController extends GetxController {
         await NetworkCaller().getRequest(ApiUrls.productByCategoryId(id));
     if (response.isSuccess) {
        _productCardViewModelClass = ProductCardViewModel.fromJson(response.responseData);
-      //  for(var i in categoryModelClass.categoryDataList!){
-      //   categoryDatalsit.add(i);
-      //  }
+
       _isLoading = false;
       update();
     } else {

@@ -1,16 +1,16 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:crafty_bay/model/sliderDataList.dart';
-import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
+import 'package:crafty_bay/model/Slider%20Model/sliderDataList.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BannerSlider extends StatelessWidget {
-   BannerSlider({super.key, required this.bannerList});
+  BannerSlider({super.key, required this.bannerDataList});
 
-  List<SliderDataList> bannerList;
+  List<SliderDataList> bannerDataList;
 
   //List<SliderDataList> dataList = Get.find<BannerSliderController>().bannerDataList;
 
@@ -19,7 +19,7 @@ class BannerSlider extends StatelessWidget {
     return Column(
       children: [
         CarouselSlider(
-          items: bannerList.map((e) {
+          items: bannerDataList.map((e) {
             return Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
@@ -33,17 +33,18 @@ class BannerSlider extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-              // Banner Image Section //  
+                  // Banner Image Section //
                   Image.network(
                     e.image.toString(),
                     height: 130,
                   ),
 
-              // Banner Titel And Button Section    
+                  // Banner Titel And Button Section //
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Banner Title //
                       Text(
                         e.title.toString(),
                         style: const TextStyle(
@@ -90,7 +91,7 @@ class BannerSlider extends StatelessWidget {
             autoPlayInterval: const Duration(seconds: 3),
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
             autoPlayCurve: Curves.easeInExpo,
-            onPageChanged: (index, reason) {
+            onPageChanged: (index, _) {
               Get.find<BannerSliderController>().onChangeIndex(index);
             },
             scrollDirection: Axis.horizontal,
@@ -104,7 +105,7 @@ class BannerSlider extends StatelessWidget {
           builder: (controller) => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; i < bannerList.length; i++)
+              for (int i = 0; i < bannerDataList.length; i++)
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Container(
                     height: 12,

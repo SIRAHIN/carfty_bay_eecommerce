@@ -14,12 +14,11 @@ class CategoryItemController extends GetxController {
 
   CategoryModelClass _categoryModelClass = CategoryModelClass();
 
-   CategoryModelClass get categoryModelClass => _categoryModelClass;
+  CategoryModelClass get categoryModelClass => _categoryModelClass;
+ 
 
-  //  List<CategoryDataList> categoryDatalsit = [];
 
-
-  //Get banner Slider Data 
+  //Get Category Item Data //
   Future getCategoryListData() async {
     _isLoading = true;
     update();
@@ -27,9 +26,6 @@ class CategoryItemController extends GetxController {
         await NetworkCaller().getRequest(ApiUrls.categoryList);
     if (response.isSuccess) {
        _categoryModelClass = CategoryModelClass.fromJson(response.responseData);
-      //  for(var i in categoryModelClass.categoryDataList!){
-      //   categoryDatalsit.add(i);
-      //  }
       _isLoading = false;
       update();
     } else {

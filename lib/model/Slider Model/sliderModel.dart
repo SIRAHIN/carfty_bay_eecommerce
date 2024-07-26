@@ -1,5 +1,5 @@
 // ignore: file_names
-import 'package:crafty_bay/model/sliderDataList.dart';
+import 'package:crafty_bay/model/Slider%20Model/sliderDataList.dart';
 
 class SliderModel {
   String? msg;
