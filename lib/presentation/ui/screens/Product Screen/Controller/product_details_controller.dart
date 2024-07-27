@@ -48,12 +48,25 @@ class ProductDetailsController extends GetxController {
   List get itemColor => _itemColor;
 
   // Function to convert hex string to Color
-  Color hexToColor(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    _itemColor.add(Color(int.parse(buffer.toString(), radix: 16)));
-    return Color(int.parse(buffer.toString(), radix: 16));
+  // Color hexToColor(String hexString) {
+  //   final buffer = StringBuffer();
+  //   if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+  //   buffer.write(hexString.replaceFirst('#', ''));
+  //   _itemColor.add(Color(int.parse(buffer.toString(), radix: 16)));
+  //   return Color(int.parse(buffer.toString(), radix: 16));
+  // }
+
+  Color colorStringNameToColor(String colorName){
+   String colorNameToUpperCase = colorName.toUpperCase();
+   if(colorNameToUpperCase == 'RED'){
+    return Colors.red;
+   } else if (colorNameToUpperCase == 'GREEN'){
+    return Colors.green;
+   } else if (colorNameToUpperCase == 'WHITE'){
+    return Colors.white;
+   } else {
+    return Colors.grey;
+   }
   }
   
   // Getting Selected Color //

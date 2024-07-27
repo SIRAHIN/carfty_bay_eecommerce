@@ -21,15 +21,18 @@ class ProductDetailsBanner extends StatelessWidget {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 decoration:  BoxDecoration(
-                image: DecorationImage(image: NetworkImage(e.toString())),
+                image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(e.toString())),
                     // borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.grey.shade300),
                 // margin: const EdgeInsets.all(1.0),
               );
             }).toList(),
             options: CarouselOptions(
-              enlargeCenterPage: true,
+              animateToClosest: true,
               height: 200,
+              enlargeCenterPage: true,
               viewportFraction: 1,
               initialPage: 0,
               autoPlay: true,

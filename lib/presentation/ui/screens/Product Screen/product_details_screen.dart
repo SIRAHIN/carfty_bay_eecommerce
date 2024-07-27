@@ -143,7 +143,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   color: Colors.yellow,
                                 ),
                                 Text(
-                                    "${porductDetailsData?.product?.star.toString().substring(0, 3)}"),
+                                    "${porductDetailsData?.product?.star.toString()}"),
                               ],
                             ),
                             const SizedBox(
@@ -207,16 +207,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 selectedcolorName = colorCodeList![
                                     productDetailsController.currentColorIndex];
 
+                                // ---------------------------------------- //
                                 // convert the Hex Color into Color object //
-                                Color decodedColor = productDetailsController
-                                    .hexToColor(colorCodeList[index]);
+                                // Color decodedColor = productDetailsController
+                                //     .hexToColor(colorCodeList[index]);
+
+                                // ---------------------------------------- //
+                                // convert the Hex Color into Color object //
+                                Color decodedColorFromString = productDetailsController.colorStringNameToColor(colorCodeList[index]);
 
                                 return GestureDetector(
                                   onTap: () {
                                     productDetailsController.changeColorIndex(index);
                                   },
                                   child: CircleAvatar(
-                                    backgroundColor: decodedColor,
+                                    backgroundColor: decodedColorFromString,
                                     radius: 16,
                                     child: productDetailsController.currentColorIndex == index
                                         ? const Icon(
@@ -306,7 +311,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
 
-                        Text(porductDetailsData?.product?.shortDes.toString() ??
+                        Text(porductDetailsData?.des.toString() ??
                             '')
                       ],
                     ),
@@ -363,6 +368,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               int.parse(widget.productId),
                                               selectedcolorName.toString(),
                                               selectedsizeValue.toString(),
+                                              
                                             );
                                             if (isSuccess) {
                                               Get.snackbar("Success",

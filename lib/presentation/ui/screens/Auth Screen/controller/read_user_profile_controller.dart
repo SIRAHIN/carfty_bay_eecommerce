@@ -28,19 +28,22 @@ class ReadUserProfileController extends GetxController {
     final ResponsedataModel response = await NetworkCaller()
         .getRequest(ApiUrls.readUserProfileUrl, token: token);
     if (response.isSuccess) {
-    log('Read user Profile Data is success');
+      log('Read user Profile Data is success');
       //Check user profile Exist
-      List profileData = response.responseData['data'];
-      // if User profiel Exsit store user data into Model class
-      if (profileData.isNotEmpty && profileData != []) {
-         _userProfileData = UserProfileData.fromJson(profileData[0]);
-        await AppStoredData.setUserProfileDetailsData(userProfileData, token: token);
-        _isProfileExsit = true;
-        update();
-      } else {
-      // Else Set bool value false that user Profile not Exsit
+      final profileData = response.responseData['data'];
+      // if User profiel Exsit set user data into User Model class
+      if (profileData == null ||
+          profileData == 'unauthorized') {
+        // if is true Set bool value false that user Profile not Exsit //
         _isProfileExsit = false;
         _errorMessage = response.errorMessage;
+        update();
+      } else {
+        _userProfileData = UserProfileData.fromJson(profileData);
+        // After setting the user data stored data into shared preferences //
+        await AppStoredData.setUserProfileDetailsData(userProfileData,
+            token: token);
+        _isProfileExsit = true;
         update();
       }
       _isLoading = false;
@@ -52,3 +55,39 @@ class ReadUserProfileController extends GetxController {
     }
   }
 }
+
+// Future readUserProfileRequest(String token) async {
+//   _isLoading = true;
+//   update();
+  
+//   final ResponsedataModel response = await NetworkCaller().getRequest(ApiUrls.readUserProfileUrl, token: token);
+  
+//   if (response.isSuccess) {
+//     log('Read user Profile Data is success');
+    
+//     var profileData = response.responseData['data'];
+    
+//     // Ensure profileData is a Map and not null
+//     if (profileData != null && profileData is Map<String, dynamic> && profileData.isNotEmpty) {
+//       try {
+//         _userProfileData = UserProfileData.fromJson(profileData);
+//         await AppStoredData.setUserProfileDetailsData(userProfileData, token: token);
+//         _isProfileExsit = true;
+//       } catch (e) {
+//         _errorMessage = 'Error parsing profile data: ${e.toString()}';
+//         _isProfileExsit = false;
+//       }
+//     } else {
+//       _isProfileExsit = false;
+//       _errorMessage = response.errorMessage;
+//     }
+    
+//     _isLoading = false;
+//     update();
+//   } else {
+//     _errorMessage = response.errorMessage;
+//     _isLoading = false;
+//     update();
+//   }
+//  }
+// }

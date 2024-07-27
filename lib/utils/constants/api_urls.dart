@@ -2,7 +2,7 @@
 
 class ApiUrls {
  
-static const String baseUrl = 'https://craftybay.teamrabbil.com/api';
+static const String baseUrl = 'http://ecom-api.teamrabbil.com/api';
 
 static String sentEmailForOtpUrl(String email) => '$baseUrl/UserLogin/$email';
 
@@ -26,6 +26,8 @@ static String productDetailsByProductId(String productId) => '$baseUrl/ProductDe
 static String addTocartUrl = '$baseUrl/CreateCartList';
 
 static String cartListUrl = '$baseUrl/CartList';
+
+static String deleteCartItembyId(String productId) => '$baseUrl/DeleteCartList/$productId';
 
 
 }

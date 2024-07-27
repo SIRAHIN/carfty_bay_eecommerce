@@ -45,13 +45,13 @@ class CompleteProfileScreen extends StatelessWidget {
                     height: 30,
                   ),
                   TextFormField(
-                    controller: completeProfileController.firstNameController,
+                    controller: completeProfileController.customerFullNameController,
                     decoration: const InputDecoration(
-                      hintText: 'First Name',
+                      hintText: 'Customer Full Name',
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter your First Name';
+                        return 'Enter Customer Customer Full  Name';
                       } 
                       return null;
                     },
@@ -60,15 +60,16 @@ class CompleteProfileScreen extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
+                   maxLines: 2,
                    validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter your Last Name';
+                        return 'Enter Customer Address';
                       } 
                       return null;
                     },
-                    controller: completeProfileController.lastNameController,
+                    controller: completeProfileController.customerAddressController,
                     decoration: const InputDecoration(
-                      hintText: 'Last Name',
+                      hintText: 'Customer Address',
                     ),
                   ),
                   const SizedBox(
@@ -77,13 +78,13 @@ class CompleteProfileScreen extends StatelessWidget {
                   TextFormField(
                    validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter your Mobile Number';
+                        return 'Enter Customer City';
                       } 
                       return null;
                     },
-                    controller: completeProfileController.mobileNameController,
+                    controller: completeProfileController.customerCityController,
                     decoration: const InputDecoration(
-                      hintText: 'Mobile',
+                      hintText: 'Customer City',
                     ),
                   ),
                   const SizedBox(
@@ -92,17 +93,34 @@ class CompleteProfileScreen extends StatelessWidget {
                   TextFormField(
                    validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter your City Name';
+                        return 'Enter Customer State';
                       } 
                       return null;
                     },
-                    controller: completeProfileController.cityNameController,
+                    controller: completeProfileController.customerStateController,
                     decoration: const InputDecoration(
-                      hintText: 'City',
+                      hintText: 'Customer State',
                     ),
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                   TextFormField(
+                   validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Customer Phone Number';
+                      } 
+                      return null;
+                    },
+                    controller:
+                        completeProfileController.customerPhoneNumberController,
+                  
+                    decoration: const InputDecoration(
+                      hintText: 'Customer Phone Number',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
                   ),
                   TextFormField(
                    validator: (value) {
@@ -113,9 +131,25 @@ class CompleteProfileScreen extends StatelessWidget {
                     },
                     controller:
                         completeProfileController.shippingAddressController,
-                    maxLines: 3,
+                    maxLines: 2,
                     decoration: const InputDecoration(
-                      hintText: 'Shopping Address',
+                      hintText: 'Shipping Address',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                    TextFormField(
+                   validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter your Shipping Phone Number';
+                      } 
+                      return null;
+                    },
+                    controller:
+                        completeProfileController.shippingPhoneController,
+                    decoration: const InputDecoration(
+                      hintText: 'Shipping Phone Number',
                     ),
                   ),
                   const SizedBox(
@@ -125,21 +159,30 @@ class CompleteProfileScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                        bool isSuccess = await completeProfileController.completeUserProfile(Get.find<OtpVerificationController>().token!);
-                        if(isSuccess){
-                         Get.toNamed(RoutesName.mainBottonNavScreen);
-                        } else if(isSuccess == false) {
-                         Get.toNamed(RoutesName.verifyEmailScreen);
-                         
-                        } else {
-                         Get.snackbar('OTP', completeProfileController.errorMessage);
-                        }
+                      child: GetBuilder<CompleteProfileController>(
+                      builder: (controller) => 
+                         Visibility(
+                         visible: controller.isLoading == false,
+                         replacement: const Center(child: CircularProgressIndicator()),
+                           child: ElevatedButton(
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                      
+                            bool isSuccess = await controller.completeUserProfile(Get.find<OtpVerificationController>().token!);
+      
+                            if(isSuccess){
+                             Get.toNamed(RoutesName.mainBottonNavScreen);
+                            } else if(isSuccess == false) {
+                             Get.toNamed(RoutesName.verifyEmailScreen);
+                             
+                            } else {
+                             Get.snackbar('OTP', completeProfileController.errorMessage);
                             }
-                          },
-                          child: const Text("Next")),
+                                }
+                              },
+                              child: const Text("Next")),
+                         ),
+                      ),
                     ),
                   )
                 ],

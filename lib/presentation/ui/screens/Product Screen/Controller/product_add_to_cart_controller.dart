@@ -1,3 +1,4 @@
+
 import 'package:crafty_bay/services/network_caller.dart';
 import 'package:crafty_bay/utils/constants/api_urls.dart';
 import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
@@ -11,13 +12,14 @@ class ProductAddToCartController extends GetxController {
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-  Future<bool> addTOcart(int productId, String productColor, String productSize) async{
+  Future<bool> addTOcart(int productId, String productColor, String productSize, {int? quantity}) async{
    _isProgress = true;
    update();
    Map<String, dynamic> inputParams ={
     "product_id": productId,
     "color": productColor,
-    "size": productSize
+    "size": productSize,
+    "qty" : 1
    };
    final reponse = await NetworkCaller().postRequest(ApiUrls.addTocartUrl, AppStoredData.token, inputParams);
    if(reponse.isSuccess){

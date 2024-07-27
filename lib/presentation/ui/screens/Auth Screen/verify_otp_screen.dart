@@ -40,11 +40,11 @@ final userEmail = Get.arguments['userEmail'];
               height: 30,
             ),
             SizedBox(
-              width: 250,
+              width: 400,
               child: PinCodeTextField(
                 controller: Get.find<OtpVerificationController>().otpCotroller,
                 appContext: context,
-                length: 4,
+                length: 6,
                 pinTheme: AppOTPStyle(),
               ),
             ),
