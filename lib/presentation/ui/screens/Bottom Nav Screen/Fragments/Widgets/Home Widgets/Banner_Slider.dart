@@ -23,60 +23,64 @@ class BannerSlider extends StatelessWidget {
             return Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      e.image ??
+                          'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/m1_macs_banner.jpg',
+                    ),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   color: AppColors.primaryColor),
               margin: const EdgeInsets.all(1.0),
 
               // Banner Inside Section //
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Banner Image Section //
-                  Image.network(
-                    e.image.toString(),
-                    height: 130,
-                  ),
-
-                  // Banner Titel And Button Section //
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Banner Title //
-                      Text(
-                        e.title.toString(),
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      // Btn section //
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: SizedBox(
-                          width: 100,
-                          height: 30,
-                          child: ElevatedButton(
-                              style: const ButtonStyle(
-                                  elevation: WidgetStatePropertyAll(0),
-                                  backgroundColor:
-                                      WidgetStatePropertyAll(Colors.white)),
-                              onPressed: () {},
-                              child: const Text(
-                                'Buy Now',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: AppColors.primaryColor),
-                              )),
+                  //Banner Titel And Button Section //
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Banner Title //
+                        Text(
+                          e.title.toString(),
+                          style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
-                      )
-                    ],
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        // Btn section //
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: SizedBox(
+                            width: 100,
+                            height: 30,
+                            child: ElevatedButton(
+                                style: const ButtonStyle(
+                                    elevation: WidgetStatePropertyAll(0),
+                                    backgroundColor:
+                                        WidgetStatePropertyAll(Colors.black)),
+                                onPressed: () {},
+                                child: const Text(
+                                  'Buy Now',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.white),
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

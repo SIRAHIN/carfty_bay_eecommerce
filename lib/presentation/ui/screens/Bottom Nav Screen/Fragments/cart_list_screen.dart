@@ -1,6 +1,5 @@
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Cart%20Fragment%20Controller/cart_list_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
-import 'package:crafty_bay/utils/constants/asset_paths.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,13 +12,6 @@ class CartListScreen extends StatefulWidget {
 }
 
 class _CartListScreenState extends State<CartListScreen> {
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   Get.find<CartListController>().getAddCartListData();
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +31,22 @@ class _CartListScreenState extends State<CartListScreen> {
          Visibility(
          visible: cartController.isLoading == false,
          replacement: const Center(child: CircularProgressIndicator()),
-           // ignore: prefer_is_empty
-           child: 
+         // first Checking null then checking empty or not //
+           child: cartController.cartModelClass.cartDataList == null || 
+           cartController.cartModelClass.cartDataList!.isEmpty 
+           ? const Center(child: Text("Not Product Added Yet")) :
             Column(
              mainAxisAlignment: MainAxisAlignment.spaceBetween,
              children: [
-               Padding(
-                 padding: const EdgeInsets.all(5.0),
-                 child: Expanded(
-                     child: ListView.separated(
+               Expanded(
+                 child: Padding(
+                   padding: const EdgeInsets.all(5.0),
+                   child: ListView.separated(
                          itemCount: cartController.cartModelClass.cartDataList?.length ?? 0,
                          shrinkWrap: true,
                          primary: false,
                          itemBuilder: (context, index) {
+                        var cartProductDetails = cartController.cartModelClass.cartDataList![index]; 
                            return Card(
                            color: Colors.white,
                            elevation: 1,
@@ -60,7 +55,7 @@ class _CartListScreenState extends State<CartListScreen> {
                            color: Colors.grey,
                            ),
                              child: ListTile(
-                             leading: Image.asset(AssetPaths.dummyImage),
+                             leading: Image.network(cartProductDetails.product?.image ?? 'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp'),
                              title:  Column(
                              mainAxisAlignment: MainAxisAlignment.center,
                              crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,16 +70,20 @@ class _CartListScreenState extends State<CartListScreen> {
                  
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Text("New Year Special Shoe", style: TextStyle(
+                                       Text(cartProductDetails.email ?? '', style: const TextStyle(
                                        fontSize: 15,
                                        fontWeight: FontWeight.w600
                                       ),),
-                                      Text('color:rex, Size: x', style: Theme.of(context).textTheme.titleSmall,),
+                                      Text('color:${cartProductDetails.color}, Size: ${cartProductDetails.size}', style: Theme.of(context).textTheme.titleSmall,),
                                     ],
                                   ),
-                             
-                                 const InkWell(
-                                 child: Icon(Icons.delete_outline_rounded),
+                                
+                                // Delete Btn Section 
+                                  InkWell(
+                                 onTap: () {
+                                   cartController.deleteItemFromCartById(cartProductDetails.productId.toString());
+                                 },
+                                 child: const Icon(Icons.delete_outline_rounded),
                                  )
                                 ],
                               )
@@ -96,7 +95,7 @@ class _CartListScreenState extends State<CartListScreen> {
                                 Column(
                                  children: [
                                    const SizedBox(height: 10,),
-                                   Text('\$100', style: Theme.of(context).textTheme.labelSmall,),
+                                   Text('\$${cartProductDetails.product?.price ??'0.0'}', style: Theme.of(context).textTheme.labelSmall,),
                                  ],
                                ),
                              
@@ -155,8 +154,8 @@ class _CartListScreenState extends State<CartListScreen> {
                              height: 2,
                            );
                          },
-                         )
                          ),
+                 ),
                ),
                
                // Bottom Section //

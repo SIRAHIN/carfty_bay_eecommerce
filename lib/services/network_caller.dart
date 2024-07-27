@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:crafty_bay/model/Response%20Data%20Model/responseData_model.dart';
 import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:http/http.dart' as http;
@@ -16,11 +14,10 @@ class NetworkCaller {
         }
 
         );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
       if (decodedResponse['msg'] == 'success') {
-      // print(decodedResponse['data'][0]);
-        print(decodedResponse['data']);
         return ResponsedataModel(
             isSuccess: true,
             statusCode: response.statusCode,
@@ -40,12 +37,11 @@ class NetworkCaller {
 
 
   Future<ResponsedataModel> postRequest(String url, String? token, Map<String, dynamic> body) async {
-  log(url);
     final http.Response response = await http
         .post(Uri.parse(url), 
         headers: {
         'Content-type': 'application/json',
-        'token' : token.toString()
+        'token' : AppStoredData.token ?? token.toString()
         },
         body: jsonEncode(body)
         );
@@ -57,12 +53,14 @@ class NetworkCaller {
             statusCode: response.statusCode,
             responseData: decodedResponse);
       } else {
+        print(response.statusCode);
         return ResponsedataModel(
             isSuccess: false,
             statusCode: response.statusCode,
             responseData: decodedResponse['data'] ?? 'Something went Wrong');
       }
     } else {
+      print(response.statusCode);
       return ResponsedataModel(
           isSuccess: false, statusCode: response.statusCode, responseData: '');
     }

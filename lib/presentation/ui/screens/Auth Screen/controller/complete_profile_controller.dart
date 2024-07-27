@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CompleteProfileController extends GetxController {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController mobileNameController = TextEditingController();
-  TextEditingController cityNameController = TextEditingController();
+  TextEditingController customerFullNameController = TextEditingController();
+  TextEditingController customerAddressController = TextEditingController();
+  TextEditingController customerCityController = TextEditingController();
+  TextEditingController customerStateController = TextEditingController();
+  TextEditingController customerPhoneNumberController = TextEditingController();
   TextEditingController shippingAddressController = TextEditingController();
+  TextEditingController shippingPhoneController = TextEditingController();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -23,34 +25,40 @@ class CompleteProfileController extends GetxController {
   UserProfileData? _userProfileData;
   UserProfileData get userProfileData => _userProfileData!;
 
-  Future <bool> completeUserProfile(String token) async {
+  Future<bool> completeUserProfile(String token) async {
+
+    Map<String, dynamic> userProfileInfo = {
+      "cus_name": customerFullNameController.text,
+      "cus_add": customerAddressController.text,
+      "cus_city": customerCityController.text.trim(),
+      "cus_state": customerStateController.text.trim(),
+      "cus_phone": customerPhoneNumberController.text.trim(),
+      "ship_add": shippingAddressController.text,
+      "ship_phone": shippingPhoneController.text.trim(),
+    };
+    
     _isLoading = true;
     update();
-    final ResponsedataModel response =
-        await NetworkCaller().postRequest(ApiUrls.createUserProfileUrl, token, {
-      "firstName": firstNameController.text.trim(),
-      "lastName": lastNameController.text.trim(),
-      "mobile": mobileNameController.text.trim(),
-      "city": cityNameController.text.trim(),
-      "shippingAddress": shippingAddressController.text.trim()
-    });
+    final ResponsedataModel response = await NetworkCaller()
+        .postRequest(ApiUrls.createUserProfileUrl, token, userProfileInfo);
+    await Future.delayed(const Duration(seconds: 3));    
     if (response.isSuccess) {
       //Check user profile Exist
       final profileData = response.responseData['data'];
       // if User profiel Exsit store user data into Model class
-      if (profileData != null || profileData != []) {
+      if (profileData != null || profileData != 'unauthorized') {
         _userProfileData = UserProfileData.fromJson(profileData);
         await AppStoredData.setUserProfileDetailsData(userProfileData,
             token: token);
-      _isLoading = false;
-      update();
-      return true;
+        _isLoading = false;
+        update();
+        return true;
       } else {
         // Else Set bool value false that user Profile not Exsit
-      _errorMessage = response.errorMessage;
-      _isLoading = false;
-      update();
-      return false;
+        _errorMessage = response.errorMessage;
+        _isLoading = false;
+        update();
+        return false;
       }
     } else {
       _errorMessage = response.errorMessage;
@@ -59,8 +67,7 @@ class CompleteProfileController extends GetxController {
     }
     _errorMessage = response.errorMessage;
     _isLoading = false;
-      update();
+    update();
     return false;
-    
   }
 }

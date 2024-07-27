@@ -1,3 +1,5 @@
+import 'package:crafty_bay/model/Product%20Card%20View%20Model/porductCardListData.dart';
+
 class CartDataList {
   int? id;
   String? email;
@@ -6,7 +8,7 @@ class CartDataList {
   String? size;
   String? createdAt;
   String? updatedAt;
-  Null product;
+  ProductCardListData? product;
 
   CartDataList(
       {this.id,
