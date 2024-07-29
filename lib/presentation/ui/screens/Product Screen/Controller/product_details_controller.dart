@@ -79,8 +79,6 @@ class ProductDetailsController extends GetxController {
     update();
   }
   
-
-
   
   // Getting Selected Size //
   
