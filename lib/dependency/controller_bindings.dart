@@ -9,6 +9,7 @@ import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Control
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Category%20Fragment%20Controller/category_item_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/banner_slider_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Home%20Fragment%20Controller/popular_product_lsit_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/WishList%20Freagments%20Controller/wish_list_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_add_to_cart_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_by_category_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
@@ -56,5 +57,8 @@ class ControllerBindings extends Bindings {
 
     Get.lazyPut<CartListController>(() => CartListController(),
         fenix: true);    
+
+        Get.lazyPut<WishListController>(() => WishListController(),
+        fenix: true); 
   }
 }

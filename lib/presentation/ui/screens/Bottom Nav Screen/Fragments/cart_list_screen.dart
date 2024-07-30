@@ -133,13 +133,12 @@ class _CartListScreenState extends State<CartListScreen> {
                                         InkWell(
                                           onTap: () {
                                             cartController.decreasedQuantity(
-                                              productID: cartProductDetails
+                                                productID: cartProductDetails
                                                     .productId!,
                                                 productColor:
                                                     cartProductDetails.color!,
-                                                porductSize:
-                                                    cartProductDetails.size!
-                                                );
+                                                productSize: 
+                                                    cartProductDetails.size!);
                                           },
                                           child: Container(
                                             alignment: Alignment.center,
@@ -169,7 +168,7 @@ class _CartListScreenState extends State<CartListScreen> {
                                                     .productId!,
                                                 productColor:
                                                     cartProductDetails.color!,
-                                                porductSize:
+                                                 productSize:
                                                     cartProductDetails.size!);
                                           },
                                           child: Container(

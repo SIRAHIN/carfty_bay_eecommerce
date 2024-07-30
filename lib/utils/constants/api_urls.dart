@@ -27,7 +27,13 @@ static String addTocartUrl = '$baseUrl/CreateCartList';
 
 static String cartListUrl = '$baseUrl/CartList';
 
+static String wishListUrl = '$baseUrl/ProductWishList';
+
 static String deleteCartItembyId(String productId) => '$baseUrl/DeleteCartList/$productId';
+
+static String addWishListbyId(String productId) => '$baseUrl/CreateWishList/$productId';
+
+static String removeWishListbyId(String productId) => '$baseUrl/RemoveWishList/$productId';
 
 
 }
