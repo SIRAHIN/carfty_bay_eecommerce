@@ -241,7 +241,7 @@ class _CartListScreenState extends State<CartListScreen> {
                                     style: const ButtonStyle(
                                         elevation: WidgetStatePropertyAll(0)),
                                     onPressed: () {
-                                      Get.to(const ReviewListScreen());
+                                    
                                     },
                                     child: const Text("Checkout")),
                               ),

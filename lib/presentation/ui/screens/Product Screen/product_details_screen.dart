@@ -1,6 +1,8 @@
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_add_to_cart_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/widgets/product_bannerSlider.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/create_review_screen.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
 import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
@@ -157,7 +159,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               width: 10,
                             ),
                             InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                 Get.off(ReviewListScreen(productID: porductDetailsData!.productId.toString(),));
+                                },
                                 child: Text(
                                   "Reviews",
                                   style: Theme.of(context).textTheme.labelSmall,

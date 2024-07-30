@@ -29,7 +29,7 @@ class WishListController extends GetxController {
     getWishListData();
   }
 
-  //Get get Cart List Item Data //
+  //Get Wish List Item Data //
   Future getWishListData() async {
     _isLoading = true;
     update();
@@ -49,9 +49,7 @@ class WishListController extends GetxController {
 
 
 
-
-
-  // Cart Item Delete Function //
+  // Wish Item Add Function //
   Future addWishListByID(String productId) async {
     final response =
         await NetworkCaller().getRequest(ApiUrls.addWishListbyId(productId));
@@ -77,7 +75,8 @@ class WishListController extends GetxController {
   }
 
 
-    Future removedWishListByID(String productId) async {
+ // Wish Item remove Function //
+  Future removedWishListByID(String productId) async {
     final response =
         await NetworkCaller().getRequest(ApiUrls.removeWishListbyId(productId));
     if (response.isSuccess) {
