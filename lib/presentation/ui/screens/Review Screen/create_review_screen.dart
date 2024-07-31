@@ -1,4 +1,6 @@
 import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/Controller/create_review_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/Controller/review_list_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,10 +72,12 @@ class CreateReviewScreen extends StatelessWidget {
                             bool isSuccess = await controller
                                 .createReviewByProdcutId(productId);
                             if (isSuccess) {
+                              Get.back();
+                              await Get.find<ReviewListController>().getReviwListByProductId(productID: productId);
                               Get.snackbar(
                                   "Success", "Your Review Added Successfully");
                             } else {
-                              Get.snackbar("O0ps",
+                              Get.snackbar("Oops",
                                   "Your Review Can't Added Successfully");
                             }
                           }

@@ -13,6 +13,8 @@ import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Control
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_add_to_cart_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_by_category_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/Controller/create_review_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/Controller/review_list_controller.dart';
 import 'package:get/get.dart';
 
 class ControllerBindings extends Bindings {
@@ -59,6 +61,12 @@ class ControllerBindings extends Bindings {
         fenix: true);    
 
         Get.lazyPut<WishListController>(() => WishListController(),
+        fenix: true); 
+
+         Get.lazyPut<ReviewListController>(() => ReviewListController(),
+        fenix: true); 
+
+          Get.lazyPut<CreateReviewController>(() => CreateReviewController(),
         fenix: true); 
   }
 }

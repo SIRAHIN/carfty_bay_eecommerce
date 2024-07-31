@@ -5,15 +5,10 @@ import 'package:http/http.dart' as http;
 
 class NetworkCaller {
   Future<ResponsedataModel> getRequest(String url, {String? token}) async {
-  
-    final http.Response response = await http
-        .get(Uri.parse(url), 
-        headers: {
-        'Content-type': 'application/json',
-        'token' : AppStoredData.token ?? token.toString()
-        }
-
-        );
+    final http.Response response = await http.get(Uri.parse(url), headers: {
+      'Content-type': 'application/json',
+      'token': AppStoredData.token ?? token.toString()
+    });
     print(response.statusCode);
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
@@ -21,8 +16,20 @@ class NetworkCaller {
         return ResponsedataModel(
             isSuccess: true,
             statusCode: response.statusCode,
-            responseData: decodedResponse
-            );
+            responseData: decodedResponse);
+      } else if (response.statusCode == 401) {
+        print(response.statusCode);
+        await AppStoredData.clearUserStoredData();
+        return ResponsedataModel(
+            isSuccess: false,
+            statusCode: response.statusCode,
+            responseData: decodedResponse['data'] ?? 'Something went Wrong');
+      } else if (response.statusCode == 500) {
+        print(response.statusCode);
+        return ResponsedataModel(
+            isSuccess: false,
+            statusCode: response.statusCode,
+            responseData: decodedResponse['data'] ?? 'Something went Wrong');
       } else {
         return ResponsedataModel(
             isSuccess: false,
@@ -35,16 +42,14 @@ class NetworkCaller {
     }
   }
 
-
-  Future<ResponsedataModel> postRequest(String url, String? token, Map<String, dynamic> body) async {
-    final http.Response response = await http
-        .post(Uri.parse(url), 
+  Future<ResponsedataModel> postRequest(
+      String url, String? token, Map<String, dynamic> body) async {
+    final http.Response response = await http.post(Uri.parse(url),
         headers: {
-        'Content-type': 'application/json',
-        'token' : AppStoredData.token ?? token.toString()
+          'Content-type': 'application/json',
+          'token': AppStoredData.token ?? token.toString()
         },
-        body: jsonEncode(body)
-        );
+        body: jsonEncode(body));
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
       if (decodedResponse['msg'] == 'success') {
@@ -52,6 +57,18 @@ class NetworkCaller {
             isSuccess: true,
             statusCode: response.statusCode,
             responseData: decodedResponse);
+      } else if (response.statusCode == 401) {
+        await AppStoredData.clearUserStoredData();
+        return ResponsedataModel(
+            isSuccess: false,
+            statusCode: response.statusCode,
+            responseData: decodedResponse['data'] ?? 'Something went Wrong');
+      } else if (response.statusCode == 500) {
+        print(response.statusCode);
+        return ResponsedataModel(
+            isSuccess: false,
+            statusCode: response.statusCode,
+            responseData: decodedResponse['data'] ?? 'Something went Wrong');
       } else {
         print(response.statusCode);
         return ResponsedataModel(

@@ -23,11 +23,7 @@ class WishListController extends GetxController {
 
   WishListModel get wishListModel => _wishListModel;
 
-  @override
-  onInit() {
-    super.onInit();
-    getWishListData();
-  }
+  
 
   //Get Wish List Item Data //
   Future getWishListData() async {

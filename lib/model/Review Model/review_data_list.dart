@@ -29,7 +29,7 @@ class ReviewDataList {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     profile =
-        json['profile'] != null ? new ReviewersProfileData.fromJson(json['profile']) : null;
+        json['profile'] != null ? ReviewersProfileData.fromJson(json['profile']) : null;
   }
 
 }

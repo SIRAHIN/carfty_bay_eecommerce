@@ -11,7 +11,7 @@ class ReviewModel {
     if (json['data'] != null) {
       reviewDataList = <ReviewDataList>[];
       json['data'].forEach((v) {
-        reviewDataList!.add(new ReviewDataList.fromJson(v));
+        reviewDataList!.add(ReviewDataList.fromJson(v));
       });
     }
   }

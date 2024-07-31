@@ -1,5 +1,4 @@
 import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/Cart%20Fragment%20Controller/cart_list_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,7 +31,14 @@ class _CartListScreenState extends State<CartListScreen> {
           // first Checking null then checking empty or not //
           child: cartController.cartModelClass.cardDataList == null ||
                   cartController.cartModelClass.cardDataList!.isEmpty
-              ? const Center(child: Text("Not Product Added Yet"))
+              ? const Center(
+                    child: Text(
+                    "You Have No Cart List Yet",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700),
+                  ))
               : Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

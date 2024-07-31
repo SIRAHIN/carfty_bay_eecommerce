@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class CreateReviewController extends GetxController {
+  TextEditingController productDesriptionController = TextEditingController();
+  TextEditingController ratingController = TextEditingController();
 
-TextEditingController productDesriptionController = TextEditingController();
-TextEditingController ratingController = TextEditingController();
-  
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
@@ -18,28 +17,26 @@ TextEditingController ratingController = TextEditingController();
 
   String get errorMessage => _errorMessage;
 
+  Future<bool> createReviewByProdcutId(String productID) async {
+    Map<String, dynamic> inputperams = {
+      "description": productDesriptionController.text.trim(),
+      "product_id": productID,
+      "rating": ratingController.text.trim()
+    };
 
-
-  Future<bool> createReviewByProdcutId(String productID)async {
-
-   Map<String, dynamic> inputperams = {
-    "description": productDesriptionController.text.trim(),
-    "product_id": productID,
-    "rating": ratingController.text.trim()
-};
-
-   _isLoading = true;
-   update();
-   final ResponsedataModel response = await NetworkCaller().postRequest(ApiUrls.createProductReviewUrl, AppStoredData.token, inputperams);
-   if(response.isSuccess){
-   _isLoading = false;
+    _isLoading = true;
     update();
-    return true;
-   } else{
-    _errorMessage = response.errorMessage;
-    _isLoading = false;
-    update();
-    return false;
-   }
+    final ResponsedataModel response = await NetworkCaller().postRequest(
+        ApiUrls.createProductReviewUrl, AppStoredData.token, inputperams);
+    if (response.isSuccess) {
+      _isLoading = false;
+      update();
+      return true;
+    } else {
+      _errorMessage = response.errorMessage;
+      _isLoading = false;
+      update();
+      return false;
+    }
   }
 }
