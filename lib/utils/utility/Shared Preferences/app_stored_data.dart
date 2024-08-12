@@ -37,4 +37,9 @@ class AppStoredData {
       return UserProfileData.fromJson(jsonDecode(userStoredProfileData));
     }
   }
+
+  static clearUserStoredData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.clear();
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:crafty_bay/model/Product%20Card%20View%20Model/porductCardListData.dart';
+import 'package:crafty_bay/presentation/ui/screens/Bottom%20Nav%20Screen/Controller/Fragments%20Controller/WishList%20Freagments%20Controller/wish_list_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/product_details_screen.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,10 @@ class ProductItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      onDoubleTap: () {
+        Get.find<WishListController>().removedWishListByID(productCardListData!.id.toString());
+      },
       onTap: () {
         Get.to(ProductDetailsScreen(
           productId: productCardListData!.id.toString(),
@@ -42,7 +46,7 @@ class ProductItemCard extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 90,
                 width: 150,
-
+      
                 // child: Image.network(productCardListData?.image ?? 'https://static-00.iconduck.com/assets.00/no-image-icon-512x512-lfoanl0w.png', width: 90,),
               ),
               const SizedBox(
@@ -78,13 +82,19 @@ class ProductItemCard extends StatelessWidget {
                                   '0.0'),
                             ],
                           ),
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 10,
                             backgroundColor: AppColors.primaryColor,
-                            child: Icon(
-                              Icons.favorite,
-                              size: 12,
-                              color: Colors.white,
+                            child: GetBuilder<WishListController>(
+                              builder: (wishController) => InkWell(
+                                onTap: () => wishController.addWishListByID(
+                                    productCardListData!.id.toString()),
+                                child: const Icon(
+                                  Icons.favorite,
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                           const Row(),

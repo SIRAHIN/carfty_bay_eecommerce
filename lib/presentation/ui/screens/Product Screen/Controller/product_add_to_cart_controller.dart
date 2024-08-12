@@ -12,14 +12,14 @@ class ProductAddToCartController extends GetxController {
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-  Future<bool> addTOcart(int productId, String productColor, String productSize, {int? quantity}) async{
+  Future<bool> addTOcart(int productId, {String? productColor, String? productSize, int? quantity}) async{
    _isProgress = true;
    update();
    Map<String, dynamic> inputParams ={
     "product_id": productId,
     "color": productColor,
     "size": productSize,
-    "qty" : 1
+    "qty" : quantity
    };
    final reponse = await NetworkCaller().postRequest(ApiUrls.addTocartUrl, AppStoredData.token, inputParams);
    if(reponse.isSuccess){
@@ -32,6 +32,28 @@ class ProductAddToCartController extends GetxController {
    _isProgress = false;
    update();
    return false;
+  }
+
+  
+
+  // product Count Increase and Decrease Functions //
+  int itemOfProduct = 1;
+
+  productCountIncrease(){
+   // code to increase product count
+   itemOfProduct += 1;
+   update();
+  }
+
+   productCountDecrease(){
+   // code to increase product count
+   if(itemOfProduct <= 1){
+    itemOfProduct = 1;
+    update();
+   } else {
+    itemOfProduct -= 1;
+    update();
+   }
   }
 
 

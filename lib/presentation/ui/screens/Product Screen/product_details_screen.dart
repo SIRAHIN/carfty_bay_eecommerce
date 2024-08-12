@@ -1,6 +1,7 @@
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_add_to_cart_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/Controller/product_details_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/Product%20Screen/widgets/product_bannerSlider.dart';
+import 'package:crafty_bay/presentation/ui/screens/Review%20Screen/review_list_screen.dart';
 import 'package:crafty_bay/routes/routes_name.dart';
 import 'package:crafty_bay/utils/utility/Shared%20Preferences/app_stored_data.dart';
 import 'package:crafty_bay/utils/utility/app_colors.dart';
@@ -46,7 +47,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         body: GetBuilder<ProductDetailsController>(
             builder: (productDetailsController) {
           var porductDetailsData = productDetailsController
-              .productDetailsModelClass.productDetailsListData?[0];
+              .productDetailsModelClass.productDetailsListData?.first;
           return Visibility(
             visible: Get.find<ProductDetailsController>().isLoading == false,
             replacement: const Center(child: CircularProgressIndicator()),
@@ -83,45 +84,52 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             )),
 
                             // Add and Remove Btn Section //
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 20,
-                                    width: 20,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.primaryColor,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: const Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                      size: 12,
+                            GetBuilder<ProductAddToCartController>(
+                            builder: (productAddToCartController) => 
+                               Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                    productAddToCartController.productCountDecrease();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 20,
+                                      width: 20,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          borderRadius: BorderRadius.circular(5)),
+                                      child: const Icon(
+                                        Icons.remove,
+                                        color: Colors.white,
+                                        size: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text('01'),
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 20,
-                                    width: 20,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.primaryColor,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 12,
+                                   Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                                    child: Text('${productAddToCartController.itemOfProduct}'),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                     productAddToCartController.productCountIncrease();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 20,
+                                      width: 20,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          borderRadius: BorderRadius.circular(5)),
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                        size: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -150,7 +158,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               width: 10,
                             ),
                             InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                 Get.to(ReviewListScreen(productID: porductDetailsData!.productId.toString(),));
+                                },
                                 child: Text(
                                   "Reviews",
                                   style: Theme.of(context).textTheme.labelSmall,
@@ -366,9 +376,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                 await addToCartcontroller
                                                     .addTOcart(
                                               int.parse(widget.productId),
+                                              productColor: 
                                               selectedcolorName.toString(),
+                                              productSize: 
                                               selectedsizeValue.toString(),
-                                              
+                                              quantity: addToCartcontroller.itemOfProduct
                                             );
                                             if (isSuccess) {
                                               Get.snackbar("Success",

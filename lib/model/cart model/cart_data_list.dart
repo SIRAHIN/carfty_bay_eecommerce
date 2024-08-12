@@ -1,33 +1,41 @@
 import 'package:crafty_bay/model/Product%20Card%20View%20Model/porductCardListData.dart';
 
-class CartDataList {
+class CardDataList {
   int? id;
-  String? email;
+  int? userId;
   int? productId;
   String? color;
   String? size;
+  int? qty;
+  String? price;
   String? createdAt;
   String? updatedAt;
-  ProductCardListData? product;
+  ProductCardListData? productCardListData;
 
-  CartDataList(
+  CardDataList(
       {this.id,
-      this.email,
+      this.userId,
       this.productId,
       this.color,
       this.size,
+      this.qty,
+      this.price,
       this.createdAt,
       this.updatedAt,
-      this.product});
+      this.productCardListData});
 
-  CartDataList.fromJson(Map<String, dynamic> json) {
+  CardDataList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    email = json['email'];
+    userId = json['user_id'];
     productId = json['product_id'];
     color = json['color'];
     size = json['size'];
+    qty = int.tryParse(json['qty']);
+    price = json['price'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    product = json['product'];
+    productCardListData =
+        json['product'] != null ? ProductCardListData.fromJson(json['product']) : null;
   }
+
 }

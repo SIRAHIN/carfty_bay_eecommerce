@@ -26,7 +26,6 @@ class CompleteProfileController extends GetxController {
   UserProfileData get userProfileData => _userProfileData!;
 
   Future<bool> completeUserProfile(String token) async {
-
     Map<String, dynamic> userProfileInfo = {
       "cus_name": customerFullNameController.text,
       "cus_add": customerAddressController.text,
@@ -36,29 +35,30 @@ class CompleteProfileController extends GetxController {
       "ship_add": shippingAddressController.text,
       "ship_phone": shippingPhoneController.text.trim(),
     };
-    
+
     _isLoading = true;
     update();
     final ResponsedataModel response = await NetworkCaller()
         .postRequest(ApiUrls.createUserProfileUrl, token, userProfileInfo);
-    await Future.delayed(const Duration(seconds: 3));    
+  
     if (response.isSuccess) {
       //Check user profile Exist
       final profileData = response.responseData['data'];
-      // if User profiel Exsit store user data into Model class
-      if (profileData != null || profileData != 'unauthorized') {
+    
+      if (profileData == null || profileData == 'unauthorized') {
+        // if Set bool value false that user Profile not Exsit
+        _errorMessage = response.errorMessage;
+        _isLoading = false;
+        update();
+        return false;
+      } else {
+        // else User profiel Exsit store user data into Model class
         _userProfileData = UserProfileData.fromJson(profileData);
         await AppStoredData.setUserProfileDetailsData(userProfileData,
             token: token);
         _isLoading = false;
         update();
         return true;
-      } else {
-        // Else Set bool value false that user Profile not Exsit
-        _errorMessage = response.errorMessage;
-        _isLoading = false;
-        update();
-        return false;
       }
     } else {
       _errorMessage = response.errorMessage;
